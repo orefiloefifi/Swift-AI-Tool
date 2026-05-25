@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- PWA -->
+<meta name="theme-color" content="#0f2027"/>
+<link rel="manifest" href="manifest.json">
+
+<title>Swift AI</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif
+}
+
+body{
+background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+color:#fff;
+overflow-x:hidden
+}
+
+/* NAV */
+
+nav{
+display:flex;
+justify-content:space-between;
+padding:20px;
+background:rgba(0,0,0,0.3);
+backdrop-filter:blur(10px);
+position:sticky;
+top:0;
+z-index:1000
+}
+
+nav h2{
+color:#00f7ff
+}
+
+nav a{
+margin:0 10px;
+color:#fff;
+text-decoration:none;
+transition:0.3s
+}
+
+nav a:hover{
+color:#00f7ff
+}
+
+/* HERO */
+
+.hero{
+text-align:center;
+padding:100px 20px
+}
+
+.hero h1{
+font-size:50px;
+background:linear-gradient(90deg,#00f7ff,#8a2be2,#ffd700);
+-webkit-background-clip:text;
+color:transparent
+}
+
+.hero p{
+margin-top:15px;
+font-size:18px;
+opacity:0.9
+}
+
+.hero button{
+padding:12px 30px;
+border:none;
+border-radius:30px;
+background:linear-gradient(90deg,#00f7ff,#8a2be2,#ffd700);
+color:#000;
+font-weight:bold;
+cursor:pointer;
+transition:0.3s;
+margin-top:20px
+}
+
+.hero button:hover{
+transform:scale(1.1)
+}
+
+/* AI */
+
+.generator{
+text-align:center;
+padding:50px
+}
+
+textarea{
+width:90%;
+max-width:600px;
+height:120px;
+border-radius:10px;
+border:none;
+padding:10px;
+outline:none
+}
+
+button.ask,
+button.img,
+button.scan-btn{
+padding:10px 20px;
+margin:10px;
+border:none;
+border-radius:25px;
+background:linear-gradient(90deg,#00f7ff,#8a2be2,#ffd700);
+cursor:pointer;
+font-weight:bold;
+transition:0.3s
+}
+
+button.ask:hover,
+button.img:hover,
+button.scan-btn:hover{
+transform:scale(1.1)
+}
+
+#chat{
+margin-top:20px;
+text-align:left;
+max-width:600px;
+margin-inline:auto
+}
+
+.user,.ai{
+padding:10px;
+margin:10px;
+border-radius:10px
+}
+
+.user{
+background:#00f7ff;
+color:#000
+}
+
+.ai{
+background:#111
+}
+
+/* FEATURES */
+
+.features{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:20px;
+padding:40px
+}
+
+.card{
+background:rgba(255,255,255,0.05);
+padding:20px;
+border-radius:15px;
+transition:0.3s
+}
+
+.card:hover{
+transform:translateY(-10px);
+box-shadow:0 10px 30px rgba(0,247,255,0.3)
+}
+
+/* CREATORS */
+
+.creators{
+text-align:center;
+padding:60px
+}
+
+.tools{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+gap:20px
+}
+
+.tool{
+background:#111;
+padding:15px;
+border-radius:10px;
+transition:0.3s
+}
+
+.tool:hover{
+background:#00f7ff;
+color:#000
+}
+
+/* BOOK SECTION */
+
+.book-section{
+padding:70px 20px;
+text-align:center
+}
+
+.book-section h2{
+font-size:40px;
+margin-bottom:40px;
+color:#ffd700
+}
+
+.book-container{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:40px;
+align-items:center
+}
+
+.book-cover img{
+width:320px;
+border-radius:20px;
+box-shadow:0 10px 30px rgba(0,0,0,0.5)
+}
+
+.book-info{
+max-width:500px;
+text-align:left
+}
+
+.book-info h3{
+font-size:32px;
+margin-bottom:15px
+}
+
+.book-info p{
+line-height:1.8;
+opacity:0.9;
+margin-bottom:25px
+}
+
+.book-links a{
+display:block;
+margin:15px 0;
+padding:14px 20px;
+background:linear-gradient(90deg,#00f7ff,#8a2be2,#ffd700);
+border-radius:30px;
+color:#000;
+font-weight:bold;
+text-decoration:none;
+transition:0.3s
+}
+
+.book-links a:hover{
+transform:scale(1.05)
+}
+
+/* BRAND ADVERTISE */
+
+.advertise{
+padding:70px 20px;
+text-align:center
+}
+
+.ad-box{
+max-width:700px;
+margin:auto;
+background:rgba(255,255,255,0.05);
+padding:30px;
+border-radius:20px
+}
+
+.ad-box input,
+.ad-box textarea{
+width:100%;
+margin:12px 0;
+padding:14px;
+border:none;
+border-radius:10px;
+outline:none
+}
+
+.ad-box button{
+padding:12px 25px;
+border:none;
+border-radius:25px;
+background:linear-gradient(90deg,#00f7ff,#8a2be2,#ffd700);
+font-weight:bold;
+cursor:pointer
+}
+
+/* SCANNER */
+
+.scanner{
+padding:70px 20px;
+text-align:center
+}
+
+#preview{
+width:100%;
+max-width:500px;
+border-radius:20px;
+margin-top:20px;
+border:3px solid #00f7ff
+}
+
+/* CONTACT */
+
+.contact{
+text-align:center;
+padding:40px
+}
+
+.contact a{
+display:block;
+margin:10px;
+color:#00f7ff
+}
+
+/* FOOTER */
+
+footer{
+text-align:center;
+padding:20px;
+opacity:0.6
+}
+
+/* PARTICLES */
+
+.particle{
+position:absolute;
+width:5px;
+height:5px;
+background:#00f7ff;
+border-radius:50%;
+opacity:0.5;
+animation:float infinite linear
+}
+
+@keyframes float{
+0%{
+transform:translateY(0)
+}
+100%{
+transform:translateY(-100vh)
+}
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+.hero h1{
+font-size:40px
+}
+
+.book-info{
+text-align:center
+}
+
+nav{
+flex-direction:column;
+align-items:center
+}
+
+nav div{
+margin-top:10px
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<script>
+
+for(let i=0;i<40;i++){
+
+let p=document.createElement("div")
+
+p.className="particle"
+
+p.style.left=Math.random()*100+"%"
+
+p.style.top=Math.random()*100+"%"
+
+p.style.animationDuration=(8+Math.random()*10)+"s"
+
+document.body.appendChild(p)
+
+}
+
+</script>
+
+<!-- NAV -->
+
+<nav>
+
+<h2>Swift AI</h2>
+
+<div>
+<a href="#">Home</a>
+<a href="#ai">AI</a>
+<a href="#features">Features</a>
+<a href="#creators">Creators</a>
+<a href="#book">Book</a>
+<a href="#advertise">Advertise</a>
+<a href="#scanner">Scanner</a>
+<a href="#contact">Contact</a>
+</div>
+
+</nav>
+
+<!-- HERO -->
+
+<section class="hero">
+
+<h1>Swift AI</h1>
+
+<p>
+Powerful AI for creators, innovators, entrepreneurs and authors.
+</p>
+
+<button onclick="scrollAI()">
+Start Using AI
+</button>
+
+</section>
+
+<!-- AI -->
+
+<section id="ai" class="generator">
+
+<h2>Ask Swift AI</h2>
+
+<textarea id="prompt" placeholder="Ask anything..."></textarea>
+
+<br>
+
+<button class="ask" onclick="sendPrompt()">
+Ask Swift AI
+</button>
+
+<button class="img" onclick="generateImage()">
+Generate Image
+</button>
+
+<div id="chat"></div>
+
+</section>
+
+<!-- FEATURES -->
+
+<section id="features" class="features">
+
+<div class="card">
+<h3>⚡ Instant AI</h3>
+<p>Get answers instantly using powerful AI.</p>
+</div>
+
+<div class="card">
+<h3>🌍 Global Knowledge</h3>
+<p>Access worldwide information and ideas.</p>
+</div>
+
+<div class="card">
+<h3>🤖 Smart Agent</h3>
+<p>Your intelligent assistant for everything.</p>
+</div>
+
+<div class="card">
+<h3>💡 Idea Generator</h3>
+<p>Create business, content and startup ideas.</p>
+</div>
+
+</section>
+
+<!-- CREATORS -->
+
+<section id="creators" class="creators">
+
+<h2 style="color:gold">
+Built For Creators
+</h2>
+
+<div class="tools">
+
+<div class="tool">🎬 Video Ideas</div>
+
+<div class="tool">✍️ Content Writing</div>
+
+<div class="tool">📈 Growth Ideas</div>
+
+<div class="tool">🚀 Startup Ideas</div>
+
+<div class="tool">📱 Social Media Captions</div>
+
+<div class="tool">🧠 AI Business Coach</div>
+
+</div>
+
+</section>
+
+<!-- BOOK -->
+
+<section id="book" class="book-section">
+
+<h2>📚 Featured Book</h2>
+
+<div class="book-container">
+
+<div class="book-cover">
+
+<!-- PUT YOUR IMAGE FILE IN SAME FOLDER -->
+<img src="book-cover.jpg" alt="Book Cover">
+
+</div>
+
+<div class="book-info">
+
+<h3>
+Job Waitressing at the OR Tambo Airport
+</h3>
+
+<p>
+My Story Beyond The Tray — by Orefiloe Choma.
+An inspiring journey of resilience, ambition and personal growth.
+</p>
+
+<div class="book-links">
+
+<a href="https://refiloefelicia.gumroad.com/l/ojqlln" target="_blank">
+Buy on Gumroad
+</a>
+
+<a href="https://www.amazon.com/dp/B0GH1RCM9T?tag=publishdriv01-20&linkCode=osi&th=1&psc=1" target="_blank">
+Buy on Amazon
+</a>
+
+<a href="http://books.apple.com/us/book/id6756492489" target="_blank">
+Buy on Apple Books
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ADVERTISE -->
+
+<section id="advertise" class="advertise">
+
+<h2 style="color:#00f7ff">
+🚀 Advertise Your Brand
+</h2>
+
+<div class="ad-box">
+
+<p style="margin-bottom:20px">
+Promote your business, product or startup on Swift AI.
+</p>
+
+<input type="text" placeholder="Brand Name">
+
+<input type="email" placeholder="Your Email">
+
+<textarea placeholder="Tell us about your brand..."></textarea>
+
+<button onclick="submitBrand()">
+Submit Brand
+</button>
+
+</div>
+
+</section>
+
+<!-- SCANNER -->
+
+<section id="scanner" class="scanner">
+
+<h2 style="color:#ffd700">
+📷 Smart Scan Feature
+</h2>
+
+<p>
+Use your phone or laptop camera to scan QR codes like Google Lens.
+</p>
+
+<button class="scan-btn" onclick="startScanner()">
+Start Scanner
+</button>
+
+<br>
+
+<video id="preview" autoplay playsinline></video>
+
+</section>
+
+<!-- CONTACT -->
+
+<section id="contact" class="contact">
+
+<h2>Contact</h2>
+
+<a href="https://wa.me/27844777940" target="_blank">
+WhatsApp
+</a>
+
+</section>
+
+<footer>
+© 2026 Swift AI
+</footer>
+
+<script>
+
+/* SCROLL */
+
+function scrollAI(){
+
+document.getElementById("ai").scrollIntoView()
+
+}
+
+/* AI CHAT */
+
+async function sendPrompt(){
+
+const prompt=document.getElementById("prompt").value
+
+const chat=document.getElementById("chat")
+
+chat.innerHTML += `
+<div class="user">
+You: ${prompt}
+</div>
+`
+
+let loading=document.createElement("div")
+
+loading.className="ai"
+
+loading.innerText="Thinking..."
+
+chat.appendChild(loading)
+
+try{
+
+const res=await fetch("/api/agent/run",{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({prompt})
+
+})
+
+const data=await res.text()
+
+loading.innerText="Swift AI: "+data
+
+}catch(err){
+
+loading.innerText="Error connecting to AI."
+
+}
+
+}
+
+/* IMAGE */
+
+async function generateImage(){
+
+const prompt=document.getElementById("prompt").value
+
+const chat=document.getElementById("chat")
+
+let imgDiv=document.createElement("div")
+
+imgDiv.className="ai"
+
+imgDiv.innerText="Generating image..."
+
+chat.appendChild(imgDiv)
+
+try{
+
+const res=await fetch("/api/image",{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({prompt})
+
+})
+
+const data=await res.json()
+
+imgDiv.innerHTML=`
+<img src="${data.url}" style="width:100%;border-radius:10px"/>
+`
+
+}catch(err){
+
+imgDiv.innerText="Image generation failed."
+
+}
+
+}
+
+/* BRAND */
+
+function submitBrand(){
+
+alert("Brand submitted successfully!")
+
+}
+
+/* CAMERA SCAN */
+
+async function startScanner(){
+
+const video=document.getElementById("preview")
+
+try{
+
+const stream=await navigator.mediaDevices.getUserMedia({
+
+video:{
+facingMode:"environment"
+}
+
+})
+
+video.srcObject=stream
+
+}catch(err){
+
+alert("Camera access denied.")
+
+}
+
+}
+
+/* PWA */
+
+if("serviceWorker" in navigator){
+
+window.addEventListener("load",()=>{
+
+navigator.serviceWorker.register("service-worker.js")
+
+})
+
+}
+
+</script>
+
+</body>
+</html>
+
