@@ -1,2 +1,2 @@
 # Swift-AI-Tool
-Ai tool
+Ai tool for students, content creators , entrepreneurs and everyone.
